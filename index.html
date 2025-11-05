@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulSpeak Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Mood Check-In Screen -->
+    <div id="moodScreen" class="screen active">
+      <h1>How is your soul right now?</h1>
+      <div class="mood-buttons">
+        <button onclick="selectMood('Happy')">😊 Happy</button>
+        <button onclick="selectMood('Sad')">😢 Sad</button>
+        <button onclick="selectMood('Anxious')">😰 Anxious</button>
+        <button onclick="selectMood('Neutral')">😐 Neutral</button>
+      </div>
+    </div>
+
+    <!-- SoulSpeak AI Insight Screen -->
+    <div id="insightScreen" class="screen">
+      <h1>SoulSpeak AI Insight</h1>
+      <p id="insightText">Your inner voice has something to reveal...</p>
+      <button onclick="speakInsight()">Release the Voice</button>
+    </div>
+
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
