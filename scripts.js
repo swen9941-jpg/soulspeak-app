@@ -5,7 +5,9 @@ const moodScreen = document.getElementById('moodScreen');
 const insightScreen = document.getElementById('insightScreen');
 const spoonScreen = document.getElementById('spoonScreen');
 const storyScreen = document.getElementById('storyScreen');
-const insightText = document.getElementById('insightText');
+const quoteText = document.getElementById('quoteText');
+const explanationText = document.getElementById('explanationText');
+const guidanceText = document.getElementById('guidanceText');
 const storyInput = document.getElementById('storyInput');
 const spoonArea = document.getElementById('spoonArea');
 
@@ -21,29 +23,45 @@ const sounds = {
 function stopAllSounds() { Object.values(sounds).forEach(sound => sound.stop()); }
 function playMoodSound(mood) { stopAllSounds(); if (sounds[mood]) sounds[mood].play(); }
 
-// Mood selection
+// Mood-based responses
+const moodResponses = {
+  Happy: {
+    quote: "Joy is your soul's sunlight.",
+    explanation: "Happiness arises when your energy aligns with what nourishes your heart.",
+    guidance: "Stir emotions gently in the Spoon and anchor gratitude in your story."
+  },
+  Sad: {
+    quote: "Sadness is a river seeking release.",
+    explanation: "Feeling sad signals your need to process loss or unmet expectations.",
+    guidance: "Let the Spoon carry the weight of sadness and transform it into words."
+  },
+  Anxious: {
+    quote: "Anxiety whispers lessons in disguise.",
+    explanation: "Anxious feelings arise when your inner compass senses uncertainty.",
+    guidance: "Use the Spoon to acknowledge anxious energy, then guide it into a calming mantra."
+  },
+  Neutral: {
+    quote: "Quietude is fertile ground.",
+    explanation: "Neutral moments allow your soul to reset and sense what truly matters.",
+    guidance: "Observe your emotions in the Spoon without judgment, then craft a story of clarity."
+  }
+};
+
+// Select mood
 function selectMood(mood) {
   userMood = mood;
   playMoodSound(mood);
-  showInsight();
-}
-
-// Show AI Insight
-function showInsight() {
+  const response = moodResponses[mood];
+  quoteText.textContent = response.quote;
+  explanationText.textContent = response.explanation;
+  guidanceText.textContent = response.guidance;
   moodScreen.classList.remove('active');
   insightScreen.classList.add('active');
-  const messages = {
-    Happy: "Your joy is a light. Let it guide your day.",
-    Sad: "Your sadness is a river. Flow with it, release it.",
-    Anxious: "Your anxious instinct is a signal, not a sentence. Let it speak, then let it go.",
-    Neutral: "Your soul waits in quiet. Listen closely."
-  };
-  insightText.textContent = messages[userMood] || messages.Neutral;
 }
 
 // Voice output
 function speakInsight() {
-  const msg = new SpeechSynthesisUtterance(insightText.textContent);
+  const msg = new SpeechSynthesisUtterance(`${quoteText.textContent}. ${explanationText.textContent}. ${guidanceText.textContent}`);
   msg.rate = 0.9; msg.pitch = 1.0;
   window.speechSynthesis.speak(msg);
 }
@@ -53,27 +71,19 @@ function showSpoon() { insightScreen.classList.remove('active'); spoonScreen.cla
 function showStory() { spoonScreen.classList.remove('active'); storyScreen.classList.add('active'); }
 
 // Save story
-function saveStory() {
-  userStory = storyInput.value;
-  alert("Your Soul Story is anchored. 🌟");
-  storyScreen.classList.remove('active'); moodScreen.classList.add('active'); storyInput.value = '';
-}
+function saveStory() { userStory = storyInput.value; alert("Your Soul Story is anchored. 🌟"); storyScreen.classList.remove('active'); moodScreen.classList.add('active'); storyInput.value = ''; }
 
-// Voice input for story
+// Voice input
 function startVoiceInput() {
-  if (!('webkitSpeechRecognition' in window)) { alert('Voice input not supported in this browser.'); return; }
+  if (!('webkitSpeechRecognition' in window)) { alert('Voice input not supported'); return; }
   const recognition = new webkitSpeechRecognition();
   recognition.lang = 'en-US'; recognition.interimResults = true; recognition.continuous = false;
   recognition.onresult = event => storyInput.value = event.results[0][0].transcript;
   recognition.start();
 }
 
-// Play story with voice
-function speakStory() {
-  const msg = new SpeechSynthesisUtterance(storyInput.value);
-  msg.rate = 0.9; msg.pitch = 1.0;
-  window.speechSynthesis.speak(msg);
-}
+// Play story
+function speakStory() { const msg = new SpeechSynthesisUtterance(storyInput.value); msg.rate=0.9; msg.pitch=1.0; window.speechSynthesis.speak(msg); }
 
 // Spoon drag interaction
 spoonArea.addEventListener('dragover', e => e.preventDefault());
@@ -82,9 +92,8 @@ spoonArea.addEventListener('drop', e => {
   const data = e.dataTransfer.getData('text/plain');
   const particle = document.createElement('div');
   particle.className = 'particle'; particle.textContent = data;
-  particle.style.left = `${Math.random() * 80 + 10}%`;
-  particle.style.top = `${Math.random() * 50 + 20}%`;
+  particle.style.left = `${Math.random()*80 +10}%`; particle.style.top = `${Math.random()*50 +20}%`;
   spoonScreen.appendChild(particle);
-  setTimeout(() => particle.remove(), 1500);
-  new Howl({ src: ['assets/sounds/stir.mp3'], volume: 0.5 }).play();
+  setTimeout(()=>particle.remove(),1500);
+  new Howl({src:['assets/sounds/stir.mp3'],volume:0.5}).play();
 });
