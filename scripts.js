@@ -1,43 +1,32 @@
-// State
-let userMood = 'Neutral';
-const moodScreen = document.getElementById('moodScreen');
-const insightScreen = document.getElementById('insightScreen');
-const insightText = document.getElementById('insightText');
+// Ambient sounds setup
+const sounds = {
+  Happy: new Howl({ src: ['assets/sounds/happy-loop.mp3'], loop: true, volume: 0.3 }),
+  Sad: new Howl({ src: ['assets/sounds/sad-loop.mp3'], loop: true, volume: 0.3 }),
+  Anxious: new Howl({ src: ['assets/sounds/anxious-loop.mp3'], loop: true, volume: 0.3 }),
+  Neutral: new Howl({ src: ['assets/sounds/neutral-loop.mp3'], loop: true, volume: 0.2 }),
+  Spoon: new Howl({ src: ['assets/sounds/spoon-loop.mp3'], loop: true, volume: 0.2 })
+};
 
-// Mood selection
+// Play sound by mood
+function playMoodSound(mood) {
+  stopAllSounds();
+  if (sounds[mood]) sounds[mood].play();
+}
+
+function stopAllSounds() {
+  Object.values(sounds).forEach(sound => sound.stop());
+}
+
+// Update mood selection to play ambient sound
 function selectMood(mood) {
   userMood = mood;
+  playMoodSound(mood);
   showInsight();
 }
 
-// Show AI Insight Screen
-function showInsight() {
-  moodScreen.classList.remove('active');
-  insightScreen.classList.add('active');
-
-  // Set dynamic insight based on mood
-  let insightMessage = '';
-  switch(userMood) {
-    case 'Happy':
-      insightMessage = "Your joy is a light. Let it guide your day.";
-      break;
-    case 'Sad':
-      insightMessage = "Your sadness is a river. Flow with it, release it.";
-      break;
-    case 'Anxious':
-      insightMessage = "Your anxious instinct is a signal, not a sentence. Let it speak, then let it go.";
-      break;
-    default:
-      insightMessage = "Your soul waits in quiet. Listen closely.";
-  }
-
-  insightText.textContent = insightMessage;
-}
-
-// Voice output using Web Speech API
-function speakInsight() {
-  const msg = new SpeechSynthesisUtterance(insightText.textContent);
-  msg.rate = 0.9;
-  msg.pitch = 1.0;
-  window.speechSynthesis.speak(msg);
+// Play Spoon ambient when entering Spoon screen
+function showSpoon() {
+  insightScreen.classList.remove('active');
+  spoonScreen.classList.add('active');
+  playMoodSound('Spoon');
 }
