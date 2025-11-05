@@ -1,60 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SoulSpeak MVP</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoulSpeak Mystic</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
 
-    <!-- Mood Check-In -->
-    <div id="moodScreen" class="screen active">
-      <h1>How is your soul right now?</h1>
-      <div class="mood-buttons">
-        <button onclick="selectMood('Happy')">😊 Happy</button>
-        <button onclick="selectMood('Sad')">😢 Sad</button>
-        <button onclick="selectMood('Anxious')">😰 Anxious</button>
-        <button onclick="selectMood('Neutral')">😐 Neutral</button>
-      </div>
+<div class="container">
+
+  <!-- Mood Check-In -->
+  <div id="moodScreen" class="screen active">
+    <h1>How does your soul feel today?</h1>
+    <div class="mood-buttons">
+      <button onclick="selectMood('Happy')">😊 Happy</button>
+      <button onclick="selectMood('Sad')">😢 Sad</button>
+      <button onclick="selectMood('Anxious')">😰 Anxious</button>
+      <button onclick="selectMood('Neutral')">😐 Neutral</button>
     </div>
-
-    <!-- SoulSpeak AI Insight -->
-    <div id="insightScreen" class="screen">
-      <h1>SoulSpeak AI Insight</h1>
-      <p id="insightText">Your inner voice has something to reveal...</p>
-      <button onclick="speakInsight()">Release the Voice</button>
-      <button onclick="showSpoon()">Enter the Spoonspace</button>
-    </div>
-
-    <!-- Soul Spoon -->
-    <div id="spoonScreen" class="screen">
-      <h1>Soul Spoon Processing</h1>
-      <p>Drag your emotions around to stir & transform them</p>
-      <div id="spoonArea">
-        <div class="emotion" draggable="true">💧</div>
-        <div class="emotion" draggable="true">🔥</div>
-        <div class="emotion" draggable="true">🌪️</div>
-      </div>
-      <button onclick="showStory()">Craft my Soul Story</button>
-    </div>
-
-    <!-- Craft Your Soul Story -->
-    <div id="storyScreen" class="screen">
-      <h1>Craft Your Soul Story</h1>
-      <textarea id="storyInput" placeholder="Type or speak your story here..."></textarea>
-      <div class="story-buttons">
-        <button onclick="startVoiceInput()">Speak Your Story</button>
-        <button onclick="speakStory()">Play My Story</button>
-        <button onclick="saveStory()">Anchor my Healing</button>
-      </div>
-    </div>
-
   </div>
 
-  <!-- Howler.js for sound -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-  <script src="scripts.js"></script>
+  <!-- SoulSpeak AI Insight -->
+  <div id="insightScreen" class="screen">
+    <h1 id="quoteText"></h1>
+    <p id="explanationText"></p>
+    <p id="guidanceText" class="guidance"></p>
+    <button onclick="speakInsight()">Hear Insight</button>
+    <button onclick="showSpoon()">Enter the Spoonspace</button>
+  </div>
+
+  <!-- Soul Spoon -->
+  <div id="spoonScreen" class="screen">
+    <h1>Soul Spoon Processing</h1>
+    <p>Drag your emotions to stir & transform them</p>
+    <div id="spoonArea">
+      <div class="emotion" draggable="true">💧</div>
+      <div class="emotion" draggable="true">🔥</div>
+      <div class="emotion" draggable="true">🌪️</div>
+    </div>
+    <button onclick="showStory()">Craft my Soul Story</button>
+  </div>
+
+  <!-- Craft Your Soul Story -->
+  <div id="storyScreen" class="screen">
+    <h1>Craft Your Soul Story</h1>
+    <textarea id="storyInput" placeholder="Type or speak your story here..."></textarea>
+    <div class="story-buttons">
+      <button onclick="startVoiceInput()">Speak Your Story</button>
+      <button onclick="speakStory()">Play My Story</button>
+      <button onclick="saveStory()">Anchor my Healing</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>
