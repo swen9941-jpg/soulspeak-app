@@ -1,12 +1,13 @@
 body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(to bottom, #1e1e2f, #2c2c3e);
-  color: #f0f0f0;
-  margin: 0;
+  font-family: 'Georgia', serif;
+  margin: 0; padding: 0;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  background: linear-gradient(to bottom, #1e1e2f, #2c2c3e);
+  color: #f0f0f0;
 }
 
 .container { text-align: center; width: 90%; max-width: 500px; }
@@ -19,24 +20,23 @@ button {
   margin: 10px;
   font-size: 16px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  background: #6b5b95;
+  background: rgba(107,91,149,0.8);
   color: #fff;
-  transition: transform 0.2s;
+  box-shadow: 0 0 15px rgba(107,91,149,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-button:hover { transform: scale(1.05); background: #8f7bbf; }
+button:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255,255,255,0.8); }
 
 .mood-buttons, .story-buttons { display: flex; flex-wrap: wrap; justify-content: center; }
 
 textarea {
-  width: 100%;
-  height: 150px;
-  padding: 10px;
+  width: 100%; height: 150px;
+  padding: 12px;
   font-size: 16px;
-  border-radius: 10px;
-  border: none;
-  resize: none;
+  border-radius: 12px; border: none; resize: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 #spoonArea { display: flex; justify-content: center; margin: 30px 0; gap: 20px; }
@@ -48,6 +48,8 @@ textarea {
   font-size: 30px;
   animation: floatUp 1.5s ease-out forwards;
 }
+
+.guidance { font-style: italic; margin-top: 15px; }
 
 @keyframes floatUp {
   0% { opacity: 1; transform: translateY(0) scale(1); }
